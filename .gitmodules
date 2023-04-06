@@ -1,0 +1,6 @@
+[submodule "ohmyszh/custom/plugins/zsh-autosuggestions"]
+	path = ohmyszh/custom/plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule "ohmyszh/custom/plugins/zsh-vi-mode"]
+	path = ohmyszh/custom/plugins/zsh-vi-mode
+	url = https://github.com/jeffreytse/zsh-vi-mode
