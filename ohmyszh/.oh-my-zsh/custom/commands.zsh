@@ -21,7 +21,7 @@ mpgdb(){
     #synchronised inputs
     export TMUX_MPI_SYNC_PANES=1
     # launch tmux-mpi
-    tmux-mpi $1 gdb $2 
+    /home/acreyes/.local/bin/tmux-mpi $1 gdb $2 
 }
 
 
