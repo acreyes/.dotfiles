@@ -31,3 +31,4 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "132"
+vim.g.fortran_do_enddo=1
