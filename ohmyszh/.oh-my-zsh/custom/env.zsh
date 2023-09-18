@@ -1,3 +1,6 @@
+export PATH=/usr/local/visit/bin:$PATH
+export PATH=/usr/local/include:$PATH
+export PATH=/usr/local:$PATH
 export PATH=/usr/local/flash-deps/bin:$PATH
 export PATH=/opt/homebrew/bin:$PATH
 export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
