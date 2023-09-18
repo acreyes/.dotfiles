@@ -24,7 +24,7 @@ local function run_live_grep(current_input)
     -- TODO: Resume old one with same options somehow
     require('telescope.builtin').live_grep {
         additional_args = live_grep_filters.extension and function()
-            return { '-g', '*.' .. live_grep_filters.extension }
+            return { '-g', '' .. live_grep_filters.extension }
         end,
         search_dirs = live_grep_filters.directories,
         default_text = current_input,
@@ -37,7 +37,7 @@ M.actions = transform_mod {
         local current_picker = action_state.get_current_picker(prompt_bufnr)
         local current_input = action_state.get_current_line()
 
-        vim.ui.input({ prompt = '*.' }, function(input)
+        vim.ui.input({ prompt = '' }, function(input)
             if input == nil then
                 return
             end
