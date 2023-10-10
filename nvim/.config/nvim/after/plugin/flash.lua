@@ -13,5 +13,6 @@ vim.keymap.set("n", "<leader>ps", prompt.pickSim)
 vim.keymap.set("n", "<leader>pr", prompt.pickRun)
 vim.keymap.set("n", "<leader>po", prompt.pickObj)
 vim.keymap.set("n", "<leader>sh", prompt.switch)
+vim.keymap.set("n", "<leader>sr", prompt.switchRD)
 
 

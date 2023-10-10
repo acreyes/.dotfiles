@@ -1,2 +1,3 @@
 require("acreyes")
+require("plugins")
 
