@@ -66,3 +66,7 @@ vim.keymap.set("n", "<C-w>l" , "<cmd>TmuxNavigateRight<CR>")
 -- noremap <silent> {Up-Mapping}       :<C-U>TmuxNavigateUp<cr>
 -- noremap <silent> {Right-Mapping}    :<C-U>TmuxNavigateRight<cr>
 -- noremap <silent> {Previous-Mapping} :<C-U>TmuxNavigatePrevious<cr>
+-- 
+--
+-- plenary
+vim.keymap.set("n", "<leader>t", "<Plug>PlenaryTestFile")
