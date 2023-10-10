@@ -1,6 +1,6 @@
 local fl = require("flash")
 local ui = require("flash.ui")
-local prompt = require("flash.prompt")
+local prompt = require("flash.prompts")
 local buf = require("flash.buffers")
 
 local FLASH_DIR = os.getenv('FLASH_DIR')
