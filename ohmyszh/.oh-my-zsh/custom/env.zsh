@@ -1,5 +1,6 @@
 export PATH=/home/acreyes/local/miniconda3/bin:$PATH
 export PATH=/home/acreyes/local/bin:$PATH
+export PATH=/home/acreyes/opt/neovim/bin:$PATH
 
 export REPO_DIR=/Users/adamreyes/Documents/research/repos/PAS
 export RSCH_DIR=/Users/adamreyes/Documents/research
