@@ -8,7 +8,7 @@ vim.cmd.packadd('packer.nvim')
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
-    use { 'nvim-telescope/telescope.nvim', tag = '0.1.1',
+    use { 'nvim-telescope/telescope.nvim',
         requires = {
             {'nvim-lua/plenary.nvim'},
             { "nvim-telescope/telescope-live-grep-args.nvim" },
