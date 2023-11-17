@@ -52,29 +52,6 @@ end)
 -- shorcut to source my luasnips file again, which will reload my snippets
 vim.keymap.set("n", "<leader><leader>s", "<cmd>source ~/.config/nvim/after/plugin/luasnip.lua<CR>")
 
-local get_root = function(bufnr)
-  local parser = vim.treesitter.get_parser(bufnr, "fortran", {})
-  local tree = parser:parse()[1]
-  return tree:root()
-end
-
-local myParameters = vim.treesitter.query.parse("fortran",
-   [[
-      (parameters(identifier)@pars)
-   ]]
-)
-
-local myTypes = vim.treesitter.query.parse("fortran", 
-   [[
-      (intrinsic_type)@type
-      (type_qualifier)@qual
-      (identifier)@id
-   ]])
-local myDeclarations = vim.treesitter.query.parse("fortran",
-   [[
-      (variable_declaration)@varDec
-   ]]
-)
 
 
 -- vim.api.nvim_create_user_command("GetPars", function()
