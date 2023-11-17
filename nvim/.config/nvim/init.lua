@@ -1,3 +1,2 @@
 require("acreyes")
-require("plugins")
 
