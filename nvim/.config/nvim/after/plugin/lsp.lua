@@ -10,6 +10,8 @@ lsp.ensure_installed({
 	'lua_ls'
 })
 
+require'lspconfig'.mojo.setup{}
+
 -- Fix Undefined global 'vim'
 require('lspconfig').lua_ls.setup {
   settings = {
