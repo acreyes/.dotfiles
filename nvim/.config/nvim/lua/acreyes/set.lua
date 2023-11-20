@@ -33,3 +33,13 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "132"
 vim.g.fortran_do_enddo=1
+
+vim.api.nvim_create_autocmd('Filetype', {
+   pattern = 'fortran',
+   callback = function()
+      vim.opt.formatprg = "fprettify --silent"
+   end
+})
+
+
+-- autocmd Filetype fortran setlocal formatprg=fprettify\ --silent
