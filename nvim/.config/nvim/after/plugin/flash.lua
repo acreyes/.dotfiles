@@ -50,12 +50,38 @@ vim.api.nvim_create_user_command('Flaunch',
                 end
             end
         )
-    end,
-    {nargs=0,
-})
+        local dap = require('dap')
+        dap.configurations.fortran = {
+           {
+              name = "Launch file",
+              type = "cppdbg",
+              request = "launch",
+              program = function()
+                 return fl.getExe()
+              end,
+              cwd = fl.getRunDir(),
+              stopAtEntry = true,
+           },
+           {
+              name = 'Attach to gdbserver :1234',
+              type = 'cppdbg',
+              request = 'launch',
+              MIMode = 'gdb',
+              miDebuggerServerAddress = 'localhost:1234',
+              miDebuggerPath = '/usr/bin/gdb',
+              cwd = fl.getRunDir(),
+              program = function()
+                 return fl.getExe()
+              end,
+           },
+        }
+
+        vim.keymap.set("n", "<leader>df", ":lua require'dap'.run({config=require'dap'.configurations.flash})<CR>")
+     end,
+     {nargs=0,
+  })
 
 -- local FLASH_DIR = os.getenv('FLASH_DIR')
 -- fl.init({FLASH=os.getenv('FLASH_DIR')})
-
 
 

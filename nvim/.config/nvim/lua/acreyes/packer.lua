@@ -35,8 +35,6 @@ vim.cmd.packadd('packer.nvim')
     use( 'tpope/vim-surround')
     use( 'tpope/vim-commentary')
     use( 'Civitasv/cmake-tools.nvim')
-    use( 'mfussenegger/nvim-dap')
-    use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
     use "folke/neodev.nvim"
     use {
         "williamboman/mason.nvim",
@@ -45,7 +43,6 @@ vim.cmd.packadd('packer.nvim')
     use ("jay-babu/mason-nvim-dap.nvim")
     use( 'vim-pandoc/vim-pandoc')
     use( 'vim-pandoc/vim-pandoc-syntax')
-    use( 'christoomey/vim-tmux-navigator')
     use ('vim-scripts/DoxygenToolkit.vim')
 
     use {
@@ -77,11 +74,12 @@ vim.cmd.packadd('packer.nvim')
         run = function() vim.fn["mkdp#util#install"]() end,
     })
 
-    use ({"/Users/adamreyes/Documents/research/repos/github/flash.nvim"})
+    use ({"acreyes/flash.nvim"})
 
     use('czheo/mojo.vim')
     use('ThePrimeagen/git-worktree.nvim')
 
+<<<<<<< HEAD
     use({
        "L3MON4D3/LuaSnip",
        -- follow latest release.
@@ -90,6 +88,10 @@ vim.cmd.packadd('packer.nvim')
        run = "make install_jsregexp"
     })
 
+=======
+    use( 'mfussenegger/nvim-dap')
+    use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+>>>>>>> cac067a (dap-flash + no more tmux C-w mappings)
 
 
 -- install without yarn or npm

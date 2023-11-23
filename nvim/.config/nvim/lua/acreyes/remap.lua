@@ -57,10 +57,11 @@ vim.keymap.set("n", "<leader>{" , "<C-6>" )
 vim.keymap.set("t", "<leader>n", "<C-\\><C-n>")
 
 -- tmux pane switching
-vim.keymap.set("n", "<C-w>h" , "<cmd>TmuxNavigateLeft<CR>")
-vim.keymap.set("n", "<C-w>j" , "<cmd>TmuxNavigateDown<CR>")
-vim.keymap.set("n", "<C-w>k" , "<cmd>TmuxNavigateUp<CR>")
-vim.keymap.set("n", "<C-w>l" , "<cmd>TmuxNavigateRight<CR>")
+-- vim.keymap.set("n", "<leader>w", "<C-w>")
+-- vim.keymap.set("n", "<C-w>h" , "<cmd>TmuxNavigateLeft<CR>")
+-- vim.keymap.set("n", "<C-w>j" , "<cmd>TmuxNavigateDown<CR>")
+-- vim.keymap.set("n", "<C-w>k" , "<cmd>TmuxNavigateUp<CR>")
+-- vim.keymap.set("n", "<C-w>l" , "<cmd>TmuxNavigateRight<CR>")
 -- noremap <silent> {Left-Mapping}   TmuxNavigatePrevious<cr>  :<C-U>TmuxNavigateLeft<cr>
 -- noremap <silent> {Down-Mapping}     :<C-U>TmuxNavigateDown<cr>
 -- noremap <silent> {Up-Mapping}       :<C-U>TmuxNavigateUp<cr>
