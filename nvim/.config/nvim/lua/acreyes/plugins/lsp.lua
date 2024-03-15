@@ -11,6 +11,7 @@ return {
          "hrsh7th/nvim-cmp",
       },
       config = function()
+         -- gives a default lsp configuration so I don't have to set it up
          local lsp = require("lsp-zero")
 
          lsp.preset("recommended")
@@ -97,6 +98,13 @@ return {
          for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
             vim.api.nvim_set_hl(0, group, {})
          end
+
+         vim.api.nvim_create_autocmd('BufWritePre', {
+            pattern = {'*.hxx', '*.hpp', '*.cxx', '*.cpp'},
+            callback = function(args)
+               vim.lsp.buf.format({ async = false })
+            end,
+         })
       end
    }
 }
