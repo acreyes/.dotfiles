@@ -9,6 +9,7 @@ vim.cmd.packadd('packer.nvim')
     use 'wbthomason/packer.nvim'
 
     use { 'nvim-telescope/telescope.nvim',
+        tag="0.1.5",
         requires = {
             {'nvim-lua/plenary.nvim'},
             { "nvim-telescope/telescope-live-grep-args.nvim" },
@@ -66,7 +67,7 @@ vim.cmd.packadd('packer.nvim')
         }
     }
 
-    use ('lervag/vimtex')
+    -- use ('lervag/vimtex')
 
     -- install without yarn or npm
     use({
@@ -74,12 +75,12 @@ vim.cmd.packadd('packer.nvim')
         run = function() vim.fn["mkdp#util#install"]() end,
     })
 
-    use ({"acreyes/flash.nvim"})
+    -- use ({"acreyes/flash.nvim"})
+    use ({"/Users/adamreyes/Documents/research/repos/github/flash.nvim"})
 
     use('czheo/mojo.vim')
     use('ThePrimeagen/git-worktree.nvim')
 
-<<<<<<< HEAD
     use({
        "L3MON4D3/LuaSnip",
        -- follow latest release.
@@ -88,10 +89,8 @@ vim.cmd.packadd('packer.nvim')
        run = "make install_jsregexp"
     })
 
-=======
     use( 'mfussenegger/nvim-dap')
     use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
->>>>>>> cac067a (dap-flash + no more tmux C-w mappings)
 
 
 -- install without yarn or npm
