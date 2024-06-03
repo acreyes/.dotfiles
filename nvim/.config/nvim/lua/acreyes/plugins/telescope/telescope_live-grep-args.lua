@@ -1,5 +1,5 @@
 local telescope = require("telescope")
-local custom_pickers = require("acreyes.telescop_custom_pickers")
+local custom_pickers = require("acreyes.plugins.telescope.telescope_custom_pickers")
 
 vim.keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
 vim.keymap.set('n', '<leader>ff', custom_pickers.live_grep)
