@@ -20,7 +20,7 @@ return {
          vim.keymap.set("n", map, bind)
       end
 
-      local mpirun = "/usr/local/flash-deps/openmpi/bin/mpirun"
+      local mpirun = "mpirun"
 
       local runConfig = function()
          local runDir = fl.getRunDir()
