@@ -126,6 +126,7 @@ local getSynopsis = function(opts)
                if dType then
                   parTypes[pardim] = dType .. string.upper(intent)
                elseif cType then
+                  print(vim.inspect(cType))
                   parTypes[pardim] = cType .. string.upper(intent)
                end
             end
