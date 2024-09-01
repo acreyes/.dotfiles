@@ -41,5 +41,11 @@ vim.api.nvim_create_autocmd('Filetype', {
    end
 })
 
+vim.api.nvim_create_autocmd('Filetype', {
+   pattern = 'c,cpp',
+   callback = function()
+      vim.bo.commentstring = '// %s'
+   end
+})
 
 -- autocmd Filetype fortran setlocal formatprg=fprettify\ --silent
