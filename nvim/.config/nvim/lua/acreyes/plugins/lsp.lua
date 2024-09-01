@@ -87,6 +87,7 @@ return {
             vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
             vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
             vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+
          end)
 
          lsp.setup()
@@ -99,6 +100,8 @@ return {
             vim.api.nvim_set_hl(0, group, {})
          end
 
+         -- vim.api.nvim_buf_set_option('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>' { noremap=true, silent=true })
+         vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', {noremap=true, silent=true})
          vim.api.nvim_create_autocmd('BufWritePre', {
             pattern = {'*.hxx', '*.hpp', '*.cxx', '*.cpp'},
             callback = function(args)
