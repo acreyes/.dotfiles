@@ -31,5 +31,19 @@ return {
          vim.api.nvim_set_hl(0, "Normal", { bg = "none"})
          vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none"})
       end
-   }
+   },
+   {
+   "vim-scripts/cpp_doxygen",
+   config = function()
+      vim.keymap.set("n", "<leader>d", "<Plug>cpp_doxygenInsert")
+      vim.g.cpp_doxygen_style = "exclamation"
+      vim.g.cpp_doxygen_command_mark = "@"
+   end
+}
+   -- { 
+   --    "danymat/neogen", 
+   --    config = true,
+   --    -- Uncomment next line if you want to follow only stable versions
+   --    -- version = "*" 
+   -- },
 }
