@@ -1,12 +1,21 @@
 return {
    "L3MON4D3/LuaSnip",
+   event = "InsertEnter",
    dependencies = {
       "nvim-treesitter/nvim-treesitter" 
    },
    config = function()
       local ls = require "luasnip"
       local types = require "luasnip.util.types"
-      require("acreyes.plugins.snips.robodoc")
+      
+      -- Lazy-load robodoc snippets only for Fortran files
+      vim.api.nvim_create_autocmd("FileType", {
+         pattern = "fortran",
+         once = true,
+         callback = function()
+            require("acreyes.plugins.snips.robodoc")
+         end,
+      })
 
       ls.config.set_config {
          -- This tells LuaSnip to remember to keep around the last snippet.

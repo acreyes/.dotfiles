@@ -1,5 +1,10 @@
 return {
    "ThePrimeagen/git-worktree.nvim",
+   dependencies = { "nvim-telescope/telescope.nvim" },
+   keys = {
+      { "<leader>nwt", function() require("telescope").extensions.git_worktree.create_git_worktree() end, desc = "Create git worktree" },
+      { "<leader>pwt", function() require("telescope").extensions.git_worktree.git_worktrees() end, desc = "List git worktrees" },
+   },
    config = function()
       require("git-worktree").setup({
          change_directory_command = "cd",
@@ -9,8 +14,6 @@ return {
          autopush = false,
       })
 
-      local twt = require("telescope").load_extension("git_worktree")
-      vim.keymap.set("n", "<leader>nwt", twt.create_git_worktree)
-      vim.keymap.set("n", "<leader>pwt", twt.git_worktrees)
+      require("telescope").load_extension("git_worktree")
    end
 }

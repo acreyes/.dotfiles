@@ -94,10 +94,62 @@ M.actions = transform_mod {
     end,
 }
 
+local get_dirs = function(dir)
+  local data = {}
+  scan.scan_dir(dir, {
+      hidden = true,
+      only_dirs = true,
+      respect_gitignore = true,
+      on_insert = function(entry)
+          table.insert(data, entry .. os_sep)
+      end,
+  })
+  table.insert(data, 1, '.' .. os_sep)
+   return data
+end
+
+local locals = {}
+
+locals.live_grep_folder_pick = function()
+  local data = get_dirs(vim.loop.cwd())
+
+  local dirs = {}
+  pickers.new({}, {
+      prompt_title = 'Folders for Live Grep',
+      finder = finders.new_table { results = data, entry_maker = make_entry.gen_from_file {} },
+      -- previewer = conf.file_previewer {},
+      sorter = conf.file_sorter {},
+      attach_mappings = function(prompt_bufnr)
+          action_set.select:replace(function()
+
+              table.insert(dirs, action_state.get_selected_entry().value)
+
+              actions.close(prompt_bufnr)
+              locals.live_grep_folder_impl(action_state.get_selected_entry().value)
+          end)
+          return true
+      end,
+  }):find()
+end
+
+locals.live_grep_folder_impl = function(dirs)
+   if not dirs then
+      locals.live_grep_folder_pick()
+   else
+      -- print(vim.inspect(dirs))
+      -- M.live_grep(dirs, nil)
+      require('telescope.builtin').live_grep({search_dirs = get_dirs(dirs)})
+   end
+end
+
+M.live_grep_folder = function()
+   locals.live_grep_folder_impl()
+end
+
 ---Small wrapper over `live_grep` to first reset our active filters
-M.live_grep = function()
-    live_grep_filters.extension = nil
-    live_grep_filters.directories = nil
+M.live_grep = function(dirs, exts)
+    live_grep_filters.extension = exts or nil
+    live_grep_filters.directories = dirs or nil
 
     require('telescope.builtin').live_grep()
 end

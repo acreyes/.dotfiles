@@ -2,6 +2,7 @@ return {
    {
       "VonHeikemen/lsp-zero.nvim",
       branch = 'v3.x',
+      event = { "BufReadPre", "BufNewFile" },
       dependencies = {
          "neovim/nvim-lspconfig",
          "williamboman/mason-lspconfig.nvim",
@@ -21,7 +22,7 @@ return {
             -- Replace the language servers listed here 
             -- with the ones you want to install
             ensure_installed = {
-               'jedi_language_server',
+               'ruff',
                'cmake',
                'clangd',
                'fortls',
@@ -42,6 +43,8 @@ return {
                   },
                },
             },
+         }
+         require('lspconfig').ruff.setup {
          }
 
 
@@ -103,11 +106,41 @@ return {
          -- vim.api.nvim_buf_set_option('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>' { noremap=true, silent=true })
          vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', {noremap=true, silent=true})
          vim.api.nvim_create_autocmd('BufWritePre', {
-            pattern = {'*.hxx', '*.hpp', '*.cxx', '*.cpp'},
+            pattern = {"*.py", "*.hpp", "*.cpp"},
             callback = function(args)
                vim.lsp.buf.format({ async = false })
             end,
          })
+         -- vim.api.nvim_create_autocmd('BufWritePre', {
+         --    pattern = {'*.hxx', '*.hpp', '*.cxx', '*.cpp'},
+         --    callback = function(args)
+         --       vim.lsp.buf.format({ async = false })
+         --    end,
+         -- })
+         -- for some reason I can't get format to work through ruff lsp 
+         -- let's stick just to fixups
+         -- vim.api.nvim_create_autocmd('BufWritePre', {
+         --    pattern = {'*.py'},
+         --    callback = function(args)
+         --       vim.lsp.buf.code_action {
+         --          context = {
+         --             only = {'source.fixAll.ruff'},
+         --          },
+         --          apply = true,
+         --       }
+         --    end,
+         -- })
+
+         -- vim.api.nvim_create_autocmd(
+         --    "BufWritePost",
+         --    {
+         --       pattern = "*.py",
+         --       callback = function()
+         --          vim.cmd("silent !uv run ruff format %")            
+         --          vim.cmd("edit")
+         --       end,
+         --    }
+         -- )
       end
    }
 }
