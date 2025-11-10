@@ -49,3 +49,9 @@ vim.api.nvim_create_autocmd('Filetype', {
 })
 
 -- autocmd Filetype fortran setlocal formatprg=fprettify\ --silent
+
+-- Disable unused providers (saves ~230ms startup time)
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_node_provider = 0
