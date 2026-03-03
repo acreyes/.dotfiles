@@ -55,3 +55,7 @@ vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
+
+-- Enable loading of project-local config files (.nvim.lua)
+vim.opt.exrc = true
+vim.opt.secure = true

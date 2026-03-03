@@ -42,7 +42,42 @@ return {
             vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
             vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
             vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+            
+            -- Add Ruff autofix keybinding for Python files
+            if client.name == "ruff" then
+               vim.keymap.set("n", "<leader>rf", function()
+                  -- Get the Ruff client specifically
+                  local ruff_client = vim.lsp.get_active_clients({ bufnr = bufnr, name = "ruff" })[1]
+                  if ruff_client then
+                     local params = {
+                        command = "ruff.applyAutofix",
+                        arguments = {
+                           {
+                              uri = vim.uri_from_bufnr(bufnr),
+                              version = vim.lsp.util.buf_versions[bufnr],
+                           }
+                        },
+                     }
+                     ruff_client.request("workspace/executeCommand", params, nil, bufnr)
+                  else
+                     vim.notify("Ruff LSP not attached to buffer", vim.log.levels.WARN)
+                  end
+               end, opts)
+            end
          end)
+
+         -- Format on save - use Ruff for Python, default LSP for C++
+         vim.api.nvim_create_autocmd('BufWritePre', {
+            pattern = "*.py",
+            callback = function(args)
+               vim.lsp.buf.format({
+                  async = false,
+                  filter = function(client)
+                     return client.name == "ruff"
+                  end
+               })
+            end,
+         })
 
          -- CRITICAL: This extends lspconfig to use lsp-zero's on_attach
          lsp.extend_lspconfig()
@@ -59,8 +94,41 @@ return {
             },
          }
          
-         require('lspconfig').ruff.setup {}
-         require('lspconfig').pyright.setup {}
+         -- Configure Ruff LSP - disable hover to let Pyright handle it
+         require('lspconfig').ruff.setup {
+            on_attach = function(client, bufnr)
+               -- Disable hover in favor of Pyright
+               client.server_capabilities.hoverProvider = false
+            end,
+         }
+         
+         -- Configure Pyright with auto-import capabilities
+         require('lspconfig').pyright.setup {
+            settings = {
+               python = {
+                  analysis = {
+                     autoSearchPaths = true,
+                     useLibraryCodeForTypes = true,
+                     diagnosticMode = "workspace",
+                     typeCheckingMode = "basic",
+                     autoImportCompletions = true,
+                  },
+               },
+            },
+            capabilities = (function()
+               local capabilities = require('cmp_nvim_lsp').default_capabilities()
+               capabilities.textDocument.completion.completionItem.snippetSupport = true
+               capabilities.textDocument.completion.completionItem.resolveSupport = {
+                  properties = {
+                     'documentation',
+                     'detail',
+                     'additionalTextEdits',
+                  }
+               }
+               return capabilities
+            end)(),
+         }
+         
          require('lspconfig').clangd.setup {}
          require('lspconfig').cmake.setup {}
          require('lspconfig').fortls.setup {}
@@ -72,12 +140,28 @@ return {
          end
 
          vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', {noremap=true, silent=true})
-         vim.api.nvim_create_autocmd('BufWritePre', {
-            pattern = {"*.py", "*.hpp", "*.cpp"},
-            callback = function(args)
-               vim.lsp.buf.format({ async = false })
-            end,
-         })
+         
+         -- Create RuffFix command for manual execution
+         vim.api.nvim_create_user_command("RuffFix", function()
+            local bufnr = vim.api.nvim_get_current_buf()
+            -- Get the Ruff client specifically for the current buffer
+            local ruff_client = vim.lsp.get_active_clients({ bufnr = bufnr, name = "ruff" })[1]
+            if ruff_client then
+               local params = {
+                  command = "ruff.applyAutofix",
+                  arguments = {
+                     {
+                        uri = vim.uri_from_bufnr(bufnr),
+                        version = vim.lsp.util.buf_versions[bufnr],
+                     }
+                  },
+               }
+               ruff_client.request("workspace/executeCommand", params, nil, bufnr)
+            else
+               vim.notify("Ruff LSP not attached to this buffer", vim.log.levels.WARN)
+            end
+         end, { desc = "Run Ruff autofix on current file" })
+         
       end
    },
    -- Mason as separate lazy-loaded plugin for server management
